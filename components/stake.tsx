@@ -79,7 +79,7 @@ const EmissionsChart = () => {
           key={i}
           style={{
             flex: 1,
-            height: `${h}%`,
+            height: `${h.toFixed(2)}%`,
             background: i === 12 ? "var(--accent)" : i < 12 ? "var(--line-2)" : "var(--line)",
             borderRadius: 2,
           }}
@@ -252,7 +252,7 @@ export const StakePage = () => {
   const withdrawDisabled = !wallet.connected || parsed <= 0 || parsed > stakedPgx || busy;
 
   return (
-    <main className="container-app" style={{ padding: "40px 32px 80px" }}>
+    <main className="container-app" style={{ paddingTop: 40, paddingBottom: 80, paddingLeft: 32, paddingRight: 32, minWidth: 0, overflow: "hidden" }}>
       <div className="row" style={{ justifyContent: "space-between", marginBottom: 28, flexWrap: "wrap", gap: 12 }}>
         <div className="col gap-8">
           <h1 style={{ fontSize: 24, fontWeight: 600, margin: 0, letterSpacing: "-0.01em" }}>Staking</h1>
@@ -260,7 +260,7 @@ export const StakePage = () => {
             Stake PGX into the on-chain reward pool. Rewards accrue every second and can be claimed anytime.
           </p>
         </div>
-        <div className="row gap-16">
+        <div className="row gap-16 stake-header-stats">
           <InlineStat label="Live APR" value={apr > 0 ? `${apr.toFixed(2)}%` : "—"} tone="accent" />
           <InlineStat label="Global PGX staked" value={fmtNum(globalStaked)} />
           <InlineStat label="Reward rate / s" value={rewardRate ? fmtNum(Number(formatUnits(rewardRate, PGX_DECIMALS))) : "—"} />
@@ -268,8 +268,8 @@ export const StakePage = () => {
       </div>
 
       <div
-        style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 12, marginBottom: 20 }}
         className="stake-summary"
+        style={{ display: "grid", gap: 12, marginBottom: 20 }}
       >
         <SummaryCard
           label="Your staked"
@@ -296,8 +296,8 @@ export const StakePage = () => {
       </div>
 
       <div
-        style={{ display: "grid", gridTemplateColumns: "minmax(340px, 440px) 1fr", gap: 20 }}
         className="stake-grid"
+        style={{ display: "grid", gap: 20 }}
       >
         <div className="panel" style={{ padding: 20, alignSelf: "start" }}>
           <div className="tabs" style={{ marginBottom: 16, width: "100%" }}>
@@ -497,7 +497,7 @@ export const StakePage = () => {
           )}
         </div>
 
-        <div className="col gap-16">
+        <div className="col gap-16" style={{ minWidth: 0 }}>
           <div className="panel">
             <div
               className="row"
@@ -505,6 +505,8 @@ export const StakePage = () => {
                 padding: "16px 20px",
                 justifyContent: "space-between",
                 borderBottom: "1px solid var(--line)",
+                flexWrap: "wrap",
+                gap: 12,
               }}
             >
               <div className="col gap-4">
@@ -562,8 +564,8 @@ export const StakePage = () => {
             )}
           </div>
 
-          <div className="panel" style={{ padding: 20 }}>
-            <div className="row" style={{ justifyContent: "space-between", marginBottom: 14 }}>
+          <div className="panel" style={{ padding: 20, overflow: "hidden" }}>
+            <div className="row" style={{ justifyContent: "space-between", marginBottom: 14, flexWrap: "wrap", gap: 10 }}>
               <div className="col gap-4">
                 <span className="caps">Emissions schedule</span>
                 <span style={{ fontSize: 14, fontWeight: 500 }}>
@@ -576,7 +578,7 @@ export const StakePage = () => {
               </div>
             </div>
             <EmissionsChart />
-            <div className="row" style={{ justifyContent: "space-between", marginTop: 14, fontSize: 12 }}>
+            <div className="row stake-emissions-footer" style={{ justifyContent: "space-between", marginTop: 14, fontSize: 12, flexWrap: "wrap", gap: 12 }}>
               <div className="col gap-4">
                 <span className="muted">Reward rate / s</span>
                 <span className="mono">
@@ -587,7 +589,7 @@ export const StakePage = () => {
                 <span className="muted">Global staked</span>
                 <span className="mono">{fmtNum(globalStaked)} PGX</span>
               </div>
-              <div className="col gap-4" style={{ alignItems: "flex-end" }}>
+              <div className="col gap-4" style={{ alignItems: "flex-end", minWidth: 0 }}>
                 <span className="muted">Your share</span>
                 <span className="mono">
                   {globalStaked > 0 ? ((stakedPgx / globalStaked) * 100).toFixed(4) + "%" : "—"}
@@ -598,12 +600,6 @@ export const StakePage = () => {
         </div>
       </div>
 
-      <style>{`
-        @media (max-width: 960px) {
-          .stake-grid { grid-template-columns: 1fr !important; }
-          .stake-summary { grid-template-columns: repeat(2, 1fr) !important; }
-        }
-      `}</style>
     </main>
   );
 };

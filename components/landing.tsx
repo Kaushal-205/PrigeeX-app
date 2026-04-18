@@ -6,7 +6,7 @@ import { Icon, TokenIcon } from "./icons";
 import { useWallet } from "./wallet";
 
 const Stat = ({ label, value, delta }: { label: string; value: string; delta?: string }) => (
-  <div className="col gap-4" style={{ alignItems: "center" }}>
+  <div className="col gap-4 stat-item" style={{ alignItems: "center" }}>
     <div className="caps">{label}</div>
     <div className="row gap-6" style={{ alignItems: "baseline" }}>
       <span className="num" style={{ fontSize: 20, fontWeight: 500 }}>{value}</span>
@@ -290,7 +290,7 @@ export const LandingPage = () => {
             opacity: 0.5,
           }}
         />
-        <div className="container-app" style={{ position: "relative", padding: "80px 32px 40px" }}>
+        <div className="container-app landing-hero" style={{ position: "relative", paddingTop: 80, paddingBottom: 40, paddingLeft: 32, paddingRight: 32 }}>
           <div className="col gap-16" style={{ alignItems: "center", textAlign: "center", maxWidth: 820, margin: "0 auto" }}>
             <div className="chip accent">
               <span className="dot pulse" style={{ background: "var(--accent)" }} />
@@ -329,7 +329,7 @@ export const LandingPage = () => {
                 Read litepaper <Icon.Ext />
               </a>
             </div>
-            <div className="row gap-24" style={{ marginTop: 20, flexWrap: "wrap", justifyContent: "center" }}>
+            <div className="row gap-24 landing-stats" style={{ marginTop: 20, flexWrap: "wrap", justifyContent: "center" }}>
               <Stat label="Total value locked" value="$148.2M" delta="+4.8%" />
               <div style={{ width: 1, height: 32, background: "var(--line)" }} className="sm-hide" />
               <Stat label="24h volume" value="$12.4M" />
@@ -345,7 +345,7 @@ export const LandingPage = () => {
         </div>
       </section>
 
-      <section className="container-app" style={{ padding: "80px 32px 40px" }}>
+      <section className="container-app landing-section" style={{ paddingTop: 80, paddingBottom: 40, paddingLeft: 32, paddingRight: 32 }}>
         <div
           className="row"
           style={{ justifyContent: "space-between", alignItems: "flex-end", marginBottom: 32, flexWrap: "wrap", gap: 16 }}
@@ -362,7 +362,7 @@ export const LandingPage = () => {
           </p>
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 12 }}>
+        <div className="feature-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 12 }}>
           <Feature icon={<Icon.Swap />} title="Swap" copy="Best-route swaps across liquidity pools with slippage controls and MEV protection." kpi="0.30% fee" href="/swap" />
           <Feature icon={<Icon.Bolt />} title="Stake" copy="Stake PGX for flexible yield paid out continuously from the on-chain reward pool." kpi="Live APR on Sepolia" href="/stake" />
           <Feature icon={<Icon.Gift />} title="Rewards" copy="Claim staking emissions, trading rebates, and ecosystem bounties in one view." kpi="Weekly epochs" href="/rewards" />
@@ -370,7 +370,7 @@ export const LandingPage = () => {
         </div>
       </section>
 
-      <section className="container-app" style={{ padding: "60px 32px" }}>
+      <section className="container-app landing-section" style={{ paddingTop: 60, paddingBottom: 32, paddingLeft: 32, paddingRight: 32 }}>
         <div className="panel" style={{ padding: 40 }}>
           <div className="row" style={{ justifyContent: "space-between", marginBottom: 32, flexWrap: "wrap", gap: 16 }}>
             <div className="col gap-8">
@@ -385,6 +385,7 @@ export const LandingPage = () => {
           </div>
 
           <div
+            className="steps-grid"
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
@@ -402,7 +403,7 @@ export const LandingPage = () => {
         </div>
       </section>
 
-      <section className="container-app" style={{ padding: "60px 32px" }}>
+      <section className="container-app landing-section" style={{ paddingTop: 60, paddingBottom: 32, paddingLeft: 32, paddingRight: 32 }}>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24 }} className="pgx-token-grid">
           <div className="col gap-16" style={{ justifyContent: "center" }}>
             <span className="caps">The token</span>
@@ -423,7 +424,7 @@ export const LandingPage = () => {
           </div>
 
           <div className="panel" style={{ padding: 28 }}>
-            <div className="row gap-12" style={{ marginBottom: 20 }}>
+            <div className="row gap-12" style={{ marginBottom: 20, flexWrap: "wrap" }}>
               <TokenIcon symbol="PGX" size="lg" />
               <div className="col gap-4">
                 <div style={{ fontSize: 16, fontWeight: 600 }}>PrigeeX</div>
@@ -441,7 +442,7 @@ export const LandingPage = () => {
 
             <PriceChart />
 
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 16, marginTop: 20 }}>
+            <div className="token-stats-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 16, marginTop: 20 }}>
               <TokenStat label="Market cap" value="$84.3M" />
               <TokenStat label="Circulating" value="200.0M" />
               <TokenStat label="Total supply" value="1.0B" />
@@ -457,8 +458,8 @@ export const LandingPage = () => {
         </div>
       </section>
 
-      <section className="container-app" style={{ padding: "40px 32px 80px" }}>
-        <div className="panel" style={{ padding: 48, textAlign: "center", position: "relative", overflow: "hidden" }}>
+      <section className="container-app landing-section" style={{ paddingTop: 40, paddingBottom: 80, paddingLeft: 32, paddingRight: 32 }}>
+        <div className="panel landing-cta" style={{ padding: 48, textAlign: "center", position: "relative", overflow: "hidden" }}>
           <div
             className="grid-bg"
             style={{

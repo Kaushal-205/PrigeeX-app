@@ -443,9 +443,9 @@ export const SwapPage = () => {
   };
 
   return (
-    <main className="container-app" style={{ padding: "40px 32px 80px" }}>
-      <div style={{ display: "grid", gridTemplateColumns: "minmax(340px, 480px) 1fr", gap: 28 }} className="swap-grid">
-        <div>
+    <main className="container-app" style={{ paddingTop: 40, paddingBottom: 80, paddingLeft: 32, paddingRight: 32, minWidth: 0, overflow: "hidden" }}>
+      <div className="swap-grid" style={{ display: "grid", gap: 28 }}>
+        <div style={{ minWidth: 0 }}>
           <div className="row" style={{ justifyContent: "space-between", marginBottom: 16 }}>
             <h1 style={{ fontSize: 24, fontWeight: 600, margin: 0, letterSpacing: "-0.01em" }}>Swap</h1>
             <div className="row gap-8">
@@ -651,9 +651,6 @@ export const SwapPage = () => {
 
       {txStep && <TxModal from={from} to={to} fromAmt={parsed} toAmt={toAmt} step={txStep} onClose={closeTxModal} />}
 
-      <style>{`
-        @media (max-width: 960px) { .swap-grid { grid-template-columns: 1fr !important; } }
-      `}</style>
     </main>
   );
 };

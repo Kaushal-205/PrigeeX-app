@@ -191,7 +191,7 @@ export const RewardsPage = () => {
   const stakingStreamDisabled = earnedPgx <= 0 || claimed.has("stake");
 
   return (
-    <main className="container-app" style={{ padding: "40px 32px 80px" }}>
+    <main className="container-app" style={{ paddingTop: 40, paddingBottom: 80, paddingLeft: 32, paddingRight: 32 }}>
       <div
         className="row"
         style={{ justifyContent: "space-between", marginBottom: 28, flexWrap: "wrap", gap: 16 }}
@@ -208,7 +208,7 @@ export const RewardsPage = () => {
       </div>
 
       <div
-        className="panel"
+        className="panel rewards-hero"
         style={{
           padding: 32,
           marginBottom: 20,
@@ -230,14 +230,14 @@ export const RewardsPage = () => {
           }}
         />
         <div
-          className="row"
+          className="row rewards-hero-inner"
           style={{ justifyContent: "space-between", position: "relative", gap: 24, flexWrap: "wrap" }}
         >
           <div className="col gap-8">
             <span className="caps">Total claimable</span>
             <div className="row gap-12" style={{ alignItems: "baseline" }}>
               <span
-                className="num"
+                className="num rewards-hero-amount"
                 style={{
                   fontSize: 56,
                   fontWeight: 500,
@@ -350,39 +350,41 @@ export const RewardsPage = () => {
                 illustrative
               </span>
             </div>
-            <table className="tbl">
-              <thead>
-                <tr>
-                  <th>Date</th>
-                  <th>Source</th>
-                  <th style={{ textAlign: "right" }}>Amount</th>
-                  <th style={{ textAlign: "right" }}>Tx</th>
-                </tr>
-              </thead>
-              <tbody>
-                {REWARD_HISTORY.map((h, i) => (
-                  <tr key={i}>
-                    <td className="mono" style={{ color: "var(--text-2)" }}>
-                      {h.date}
-                    </td>
-                    <td>{h.kind}</td>
-                    <td style={{ textAlign: "right" }} className="num">
-                      {fmtNum(h.amount, 2)} PGX
-                    </td>
-                    <td style={{ textAlign: "right" }}>
-                      <a
-                        className="mono"
-                        style={{ fontSize: 12, color: "var(--text-2)" }}
-                        href="#"
-                        onClick={(e) => e.preventDefault()}
-                      >
-                        {h.tx} <Icon.Ext />
-                      </a>
-                    </td>
+            <div className="tbl-wrap">
+              <table className="tbl">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Source</th>
+                    <th style={{ textAlign: "right" }}>Amount</th>
+                    <th style={{ textAlign: "right" }}>Tx</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {REWARD_HISTORY.map((h, i) => (
+                    <tr key={i}>
+                      <td className="mono" style={{ color: "var(--text-2)" }}>
+                        {h.date}
+                      </td>
+                      <td>{h.kind}</td>
+                      <td style={{ textAlign: "right" }} className="num">
+                        {fmtNum(h.amount, 2)} PGX
+                      </td>
+                      <td style={{ textAlign: "right" }}>
+                        <a
+                          className="mono"
+                          style={{ fontSize: 12, color: "var(--text-2)" }}
+                          href="#"
+                          onClick={(e) => e.preventDefault()}
+                        >
+                          {h.tx} <Icon.Ext />
+                        </a>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
 
@@ -439,11 +441,6 @@ export const RewardsPage = () => {
         </div>
       </div>
 
-      <style>{`
-        @media (max-width: 960px) {
-          .rewards-grid { grid-template-columns: 1fr !important; }
-        }
-      `}</style>
     </main>
   );
 };
@@ -478,7 +475,7 @@ const StreamRow = ({
     <button
       onClick={onToggle}
       disabled={effectiveDisabled}
-      className="row gap-16"
+      className="row gap-16 stream-row"
       style={{
         padding: "16px 18px",
         background: claimed

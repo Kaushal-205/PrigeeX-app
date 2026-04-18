@@ -43,14 +43,14 @@ export const Nav = () => {
         borderBottom: "1px solid var(--line)",
       }}
     >
-      <div className="container-app row" style={{ height: 64, gap: 28 }}>
-        <Link href="/" className="row gap-8" style={{ padding: 0, alignItems: "center" }}>
+      <div className="container-app row nav-header" style={{ height: 64, gap: 16, justifyContent: "space-between" }}>
+        <Link href="/" className="row gap-8 nav-logo" style={{ padding: 0, alignItems: "center", flexShrink: 0 }}>
           <Icon.Logo size={24} />
           <span style={{ fontSize: 16, fontWeight: 600, letterSpacing: "-0.01em", lineHeight: 1 }}>
             PrigeeX
           </span>
           <span
-            className="mono"
+            className="mono mvp-badge"
             style={{
               fontSize: 10,
               padding: "2px 6px",
@@ -72,7 +72,7 @@ export const Nav = () => {
           ))}
         </nav>
 
-        <div className="row gap-8" style={{ marginLeft: "auto" }}>
+        <div className="row gap-8" style={{ flexShrink: 0 }}>
           <div className="chip sm-hide">
             <span className="dot pulse" />
             <span className="mono">PGX</span>
@@ -92,7 +92,7 @@ export const Nav = () => {
                     display: "inline-block",
                   }}
                 />
-                <span className="mono">{shortAddr(wallet.address)}</span>
+                <span className="mono sm-hide">{shortAddr(wallet.address)}</span>
                 <Icon.Arrow dir="down" size={12} />
               </button>
               {profileOpen && (
@@ -107,6 +107,7 @@ export const Nav = () => {
                       top: "calc(100% + 8px)",
                       right: 0,
                       width: 280,
+                      maxWidth: "calc(100vw - 32px)",
                       zIndex: 20,
                       background: "var(--panel)",
                       border: "1px solid var(--line)",
@@ -157,18 +158,18 @@ export const Nav = () => {
             </div>
           ) : (
             <button className="btn btn-primary" onClick={wallet.open}>
-              <Icon.Wallet /> Connect wallet
+              <Icon.Wallet /><span className="sm-hide">Connect wallet</span><span className="md-hide" style={{ display: "none" }}>Connect</span>
             </button>
           )}
 
-          <button className="btn btn-ghost" onClick={() => setMenu(!menu)} style={{ padding: 10 }}>
+          <button className="btn btn-ghost hamburger-btn md-hide" onClick={() => setMenu(!menu)} style={{ padding: 10 }}>
             <Icon.Menu />
           </button>
         </div>
       </div>
 
       {menu && (
-        <div className="md-hide" style={{ borderTop: "1px solid var(--line)", padding: "8px 0" }}>
+        <div style={{ borderTop: "1px solid var(--line)", padding: "8px 0", background: "var(--bg)" }}>
           <div className="container-app col gap-4" style={{ paddingTop: 8, paddingBottom: 8 }}>
             {links.map((l) => (
               <Link
@@ -176,7 +177,7 @@ export const Nav = () => {
                 href={l.href}
                 onClick={() => setMenu(false)}
                 className={`nav-link ${isActive(pathname, l.href) ? "active" : ""}`}
-                style={{ textAlign: "left", padding: "10px 12px" }}
+                style={{ textAlign: "left", padding: "12px 12px", fontSize: 16 }}
               >
                 {l.label}
               </Link>
@@ -191,7 +192,7 @@ export const Nav = () => {
 export const Footer = () => (
   <footer style={{ borderTop: "1px solid var(--line)", marginTop: 80, padding: "32px 0" }}>
     <div
-      className="container-app row"
+      className="container-app row footer-inner"
       style={{ justifyContent: "space-between", gap: 16, flexWrap: "wrap" }}
     >
       <div className="row gap-8" style={{ alignItems: "center" }}>
@@ -199,7 +200,7 @@ export const Footer = () => (
         <span style={{ fontSize: 13, fontWeight: 500, lineHeight: 1 }}>PrigeeX</span>
         <span className="mono" style={{ fontSize: 11, color: "var(--text-3)" }}>v0.1.0 · MVP</span>
       </div>
-      <div className="row gap-16" style={{ fontSize: 13, color: "var(--text-2)" }}>
+      <div className="row gap-16 footer-links" style={{ fontSize: 13, color: "var(--text-2)" }}>
         <a href="#docs">Docs</a>
         <a href="#gov">Governance</a>
         <a href="#audit">Audit</a>

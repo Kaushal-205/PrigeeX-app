@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
@@ -19,6 +19,12 @@ export const metadata: Metadata = {
   title: "PrigeeX · Non-custodial swap, stake, earn",
   description:
     "PrigeeX is a non-custodial exchange and rewards layer for the PGX ecosystem. Connect any wallet. Your assets never leave your address.",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

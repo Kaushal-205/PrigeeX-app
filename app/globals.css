@@ -22,7 +22,7 @@
 }
 
 * { box-sizing: border-box; }
-html, body { margin: 0; padding: 0; }
+html, body { margin: 0; padding: 0; overflow-x: hidden; }
 body {
   font-family: var(--font);
   background: var(--bg);
@@ -171,9 +171,6 @@ input:focus, button:focus-visible {
   margin: 0 auto;
   padding: 0 32px;
 }
-@media (max-width: 640px) {
-  .container-app { padding: 0 16px; }
-}
 
 .tok-icon {
   width: 28px; height: 28px; border-radius: 50%;
@@ -219,9 +216,126 @@ input:focus, button:focus-visible {
 .tbl tr:last-child td { border-bottom: none; }
 .tbl tr:hover td { background: var(--bg-2); }
 
+.tbl-wrap { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+/* Page grids — defined in CSS so media queries can override.
+   `minmax(0, ...)` prevents long content from blowing out the column. */
+.stake-summary { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.stake-grid { grid-template-columns: minmax(0, 440px) minmax(0, 1fr); }
+.swap-grid { grid-template-columns: minmax(0, 480px) minmax(0, 1fr); }
+.rewards-grid { grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); }
+
+/* ─── Responsive: Tablet ─── */
 @media (max-width: 900px) {
   .md-hide { display: none !important; }
+  .hamburger-btn { display: flex !important; }
 }
+
+/* ─── Responsive: Tablet-ish ─── */
+@media (max-width: 960px) {
+  .swap-grid { grid-template-columns: minmax(0, 1fr) !important; }
+  .stake-grid { grid-template-columns: minmax(0, 1fr) !important; }
+  .stake-summary { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+  .rewards-grid { grid-template-columns: minmax(0, 1fr) !important; }
+}
+
+@media (max-width: 820px) {
+  .pgx-token-grid { grid-template-columns: 1fr !important; }
+}
+
+/* ─── Responsive: Mobile ─── */
 @media (max-width: 640px) {
   .sm-hide { display: none !important; }
+  .container-app { padding: 0 16px; }
+
+  /* Nav */
+  .nav-header { height: 56px !important; gap: 8px !important; }
+  .nav-logo .mvp-badge { display: none; }
+
+  /* Landing hero */
+  .landing-hero { padding-top: 48px !important; padding-bottom: 24px !important; }
+  .landing-hero h1 { font-size: clamp(28px, 8vw, 42px) !important; }
+  .landing-hero p { font-size: 15px !important; }
+  .landing-stats { gap: 16px !important; }
+  .landing-stats .stat-item { min-width: 120px; }
+
+  /* Landing sections */
+  .landing-section { padding-top: 40px !important; padding-bottom: 24px !important; }
+  .landing-section h2 { font-size: 24px !important; }
+  .landing-section .panel { padding: 20px !important; }
+
+  /* Feature grid */
+  .feature-grid { grid-template-columns: 1fr !important; gap: 10px !important; }
+
+  /* Steps */
+  .steps-grid { grid-template-columns: 1fr !important; gap: 0 !important; }
+
+  /* Token section */
+  .pgx-token-grid { grid-template-columns: 1fr !important; }
+  .token-stats-grid { grid-template-columns: 1fr 1fr !important; gap: 12px !important; }
+
+  /* CTA */
+  .landing-cta { padding: 28px 20px !important; }
+  .landing-cta h2 { font-size: 24px !important; }
+
+  /* App preview */
+  .app-preview-grid { grid-template-columns: 1fr !important; }
+
+  /* Swap page */
+  .swap-grid { grid-template-columns: minmax(0, 1fr) !important; }
+
+  /* Stake page */
+  .stake-grid { grid-template-columns: minmax(0, 1fr) !important; }
+  .stake-summary { grid-template-columns: minmax(0, 1fr) !important; }
+  .stake-header-stats { flex-direction: column !important; align-items: flex-start !important; gap: 8px !important; }
+  .stake-grid > .panel,
+  .stake-grid > .col > .panel { min-width: 0; max-width: 100%; }
+  .stake-grid .tabs { width: 100%; min-width: 0; }
+  .stake-grid .tabs button { min-width: 0; padding: 7px 10px; }
+
+  /* Rewards page */
+  .rewards-grid { grid-template-columns: minmax(0, 1fr) !important; }
+  .rewards-hero { padding: 20px !important; }
+  .rewards-hero-amount { font-size: 40px !important; }
+  .rewards-hero-inner { flex-direction: column !important; align-items: stretch !important; gap: 20px !important; }
+  .rewards-hero-inner > .col { min-width: 0 !important; width: 100%; }
+  .stream-row { padding: 12px !important; gap: 10px !important; }
+
+  /* Footer */
+  .footer-inner { flex-direction: column !important; align-items: flex-start !important; gap: 16px !important; }
+  .footer-links { flex-wrap: wrap !important; gap: 12px !important; }
+
+  /* Modals */
+  .modal-backdrop { padding: 12px; align-items: flex-end; }
+  .modal { max-width: 100%; border-radius: var(--radius-lg) var(--radius-lg) 0 0; }
+
+  /* Toasts */
+  .toast-host { top: auto; bottom: 12px; right: 12px; left: 12px; }
+  .toast { min-width: auto; max-width: 100%; }
+
+  /* General */
+  main.container-app { padding-left: 16px !important; padding-right: 16px !important; }
+}
+
+/* ─── Responsive: Extra small ─── */
+@media (max-width: 480px) {
+  /* Rewards hero — trim number further so long amounts ("12,345.67") don't overflow */
+  .rewards-hero-amount { font-size: 34px !important; }
+
+  /* Tables — tighten cell padding so 4-col claim history fits without scroll */
+  .tbl th, .tbl td { padding: 10px 12px; font-size: 12px; }
+
+  /* Stake emissions footer — 2-up instead of 3 cramped */
+  .stake-emissions-footer > div { flex: 1 1 45%; align-items: flex-start !important; min-width: 0; }
+
+  /* Swap settings slippage chips — wrap cleanly */
+  .swap-grid .panel .row.gap-8 { flex-wrap: wrap; }
+}
+
+@media (max-width: 380px) {
+  .landing-hero h1 { font-size: 26px !important; }
+  .btn-lg { padding: 12px 18px; font-size: 14px; }
+  .landing-cta { padding: 20px 16px !important; }
+  .rewards-hero-amount { font-size: 28px !important; }
+  .nav-logo .mono { display: none; } /* hide MVP badge on tiny viewports */
 }
