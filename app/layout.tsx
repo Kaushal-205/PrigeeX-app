@@ -1,9 +1,8 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Fraunces } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
-import { Nav } from "@/components/nav";
-import { Footer } from "@/components/nav";
+import { Nav, MobileTabBar, Footer } from "@/components/nav";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,26 +14,45 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const fraunces = Fraunces({
+  variable: "--font-serif",
+  subsets: ["latin"],
+  style: ["normal", "italic"],
+  weight: ["400", "500", "600"],
+});
+
 export const metadata: Metadata = {
-  title: "PrigeeX · Non-custodial swap, stake, earn",
+  title: "PrigeeX · Elevate DeFi Investments",
   description:
-    "PrigeeX is a non-custodial exchange and rewards layer for the PGX ecosystem. Connect any wallet. Your assets never leave your address.",
+    "Tokenize. Trade. Thrive. PrigeeX is an ultra-low-fee DEX and rewards protocol for tokenized real-world assets. Secure, audited, non-custodial.",
+  keywords: [
+    "PrigeeX", "PGX", "DeFi", "RWA", "tokenization", "staking",
+    "non-custodial", "DEX", "yield",
+  ],
+  openGraph: {
+    title: "PrigeeX · Elevate DeFi Investments",
+    description:
+      "Tokenize. Trade. Thrive. Ultra-low-fee DEX and rewards protocol for tokenized real-world assets.",
+    type: "website",
+  },
 };
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,
+  themeColor: "#0F1A33",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
+    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} ${fraunces.variable}`}>
       <body>
         <Providers>
           <Nav />
-          {children}
+          <div className="app-shell">{children}</div>
           <Footer />
+          <MobileTabBar />
         </Providers>
       </body>
     </html>

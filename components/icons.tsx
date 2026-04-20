@@ -5,32 +5,32 @@ type IconProps = { size?: number };
 export const Icon = {
   Logo: ({ size = 24 }: IconProps) => {
     const uid = React.useId();
-    const faceId = `pgx-face-${uid}`;
-    const shadeId = `pgx-shade-${uid}`;
+    const bgId = `pgx-lg-bg-${uid}`;
+    const xId = `pgx-lg-x-${uid}`;
     return (
       <svg
         width={size}
         height={size}
-        viewBox="10 6 52 50"
+        viewBox="0 0 48 48"
         fill="none"
         role="img"
         aria-label="PrigeeX"
         style={{ display: "block" }}
       >
         <defs>
-          <linearGradient id={faceId} x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#D4F858" />
-            <stop offset="100%" stopColor="#9FD126" />
+          <linearGradient id={bgId} x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor="#0F1A33" />
+            <stop offset="100%" stopColor="#1A2747" />
           </linearGradient>
-          <linearGradient id={shadeId} x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#A8D636" />
-            <stop offset="100%" stopColor="#6F9A1C" />
+          <linearGradient id={xId} x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor="#7BE9F2" />
+            <stop offset="50%" stopColor="#4DB4E8" />
+            <stop offset="100%" stopColor="#3E7DDB" />
           </linearGradient>
         </defs>
-        <path d="M36 6 L62 28 L50 56 L22 56 L10 28 Z" fill={`url(#${faceId})`} />
-        <path d="M36 6 L50 56 L22 56 Z" fill={`url(#${shadeId})`} opacity="0.9" />
-        <path d="M36 6 L36 56" stroke="#2B3A0F" strokeWidth="1" opacity="0.35" />
-        <path d="M10 28 L62 28" stroke="#2B3A0F" strokeWidth="1" opacity="0.35" />
+        <rect x="1" y="1" width="46" height="46" rx="11" fill={`url(#${bgId})`} stroke="#253659" strokeWidth="1" />
+        <path d="M13 12 L19 12 L35 36 L29 36 Z" fill={`url(#${xId})`} />
+        <path d="M29 12 L35 12 L19 36 L13 36 Z" fill={`url(#${xId})`} opacity="0.9" />
       </svg>
     );
   },
@@ -130,25 +130,23 @@ export const Icon = {
 const TokenGlyph = ({ symbol, s }: { symbol: string; s: number }) => {
   switch (symbol) {
     case "PGX": {
-      const faceId = `pgx-tok-face-${s}`;
-      const shadeId = `pgx-tok-shade-${s}`;
+      const bgId = `pgx-tok-bg-${s}`;
+      const xId = `pgx-tok-x-${s}`;
       return (
         <svg width={s} height={s} viewBox="0 0 32 32">
           <defs>
-            <linearGradient id={faceId} x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stopColor="#D4F858" />
-              <stop offset="100%" stopColor="#9FD126" />
+            <linearGradient id={bgId} x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor="#0F1A33" />
+              <stop offset="100%" stopColor="#1A2747" />
             </linearGradient>
-            <linearGradient id={shadeId} x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stopColor="#A8D636" />
-              <stop offset="100%" stopColor="#6F9A1C" />
+            <linearGradient id={xId} x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor="#7BE9F2" />
+              <stop offset="100%" stopColor="#3E7DDB" />
             </linearGradient>
           </defs>
-          <circle cx="16" cy="16" r="15" fill="#14200A" />
-          <path d="M16 6 L27 15 L22 26 L10 26 L5 15 Z" fill={`url(#${faceId})`} />
-          <path d="M16 6 L22 26 L10 26 Z" fill={`url(#${shadeId})`} opacity="0.9" />
-          <path d="M16 6 L16 26" stroke="#2B3A0F" strokeWidth="0.6" opacity="0.4" />
-          <path d="M5 15 L27 15" stroke="#2B3A0F" strokeWidth="0.6" opacity="0.4" />
+          <circle cx="16" cy="16" r="15" fill={`url(#${bgId})`} stroke="#253659" strokeWidth="0.8" />
+          <path d="M9 8.5 L13 8.5 L23 23.5 L19 23.5 Z" fill={`url(#${xId})`} />
+          <path d="M19 8.5 L23 8.5 L13 23.5 L9 23.5 Z" fill={`url(#${xId})`} opacity="0.9" />
         </svg>
       );
     }
