@@ -1,9 +1,11 @@
-import { http, createConfig } from "wagmi";
+import { http, fallback, createConfig } from "wagmi";
 import { sepolia } from "wagmi/chains";
 import { injected, metaMask, walletConnect, coinbaseWallet } from "wagmi/connectors";
 
 const WC_PROJECT_ID =
   process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID || "prigeex-demo";
+
+const sepoliaRpc = process.env.NEXT_PUBLIC_SEPOLIA_RPC_URL || "https://ethereum-sepolia-rpc.publicnode.com";
 
 export const wagmiConfig = createConfig({
   chains: [sepolia],
@@ -15,11 +17,15 @@ export const wagmiConfig = createConfig({
     walletConnect({ projectId: WC_PROJECT_ID, showQrModal: true }),
   ],
   transports: {
-    [sepolia.id]: http(
-      process.env.NEXT_PUBLIC_SEPOLIA_RPC_URL || "https://rpc.sepolia.org"
-    ),
+    [sepolia.id]: fallback([
+      http(sepoliaRpc),
+      http("https://ethereum-sepolia-rpc.publicnode.com"),
+      http("https://rpc2.sepolia.org"),
+      http("https://rpc.sepolia.org"),
+    ]),
   },
 });
+
 
 declare module "wagmi" {
   interface Register {

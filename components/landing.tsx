@@ -15,7 +15,7 @@ const HERO_STATS = [
 const HERO_BULLETS = [
   "Tokenize real-world assets, onchain.",
   "Trade on an ultra-low-fee DEX built for Infinium Layer 2.",
-  "Stake, claim, thrive — earn high-yield rewards.",
+  "Stake, claim, thrive - earn high-yield rewards.",
   "Secure · audited · funded by top investors.",
 ];
 
@@ -206,18 +206,36 @@ const HeroMark = () => (
       fill="none"
     >
       <defs>
-        <linearGradient id="hero-x" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#7BE9F2" />
-          <stop offset="50%" stopColor="#4DB4E8" />
-          <stop offset="100%" stopColor="#3E7DDB" />
+        <linearGradient id="hero-xf" x1="0.5" y1="0" x2="0.5" y2="1">
+          <stop offset="0%" stopColor="#7CC2FF" />
+          <stop offset="20%" stopColor="#2F8AF0" />
+          <stop offset="45%" stopColor="#1670E8" />
+          <stop offset="75%" stopColor="#0B3FA8" />
+          <stop offset="100%" stopColor="#020828" />
         </linearGradient>
-        <linearGradient id="hero-x-dim" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#7BE9F2" stopOpacity="0.55" />
-          <stop offset="100%" stopColor="#3E7DDB" stopOpacity="0.55" />
+        <linearGradient id="hero-xb" x1="0.5" y1="0" x2="0.5" y2="1">
+          <stop offset="0%" stopColor="#3A8CE0" />
+          <stop offset="35%" stopColor="#1058C8" />
+          <stop offset="70%" stopColor="#062B84" />
+          <stop offset="100%" stopColor="#010516" />
+        </linearGradient>
+        <linearGradient id="hero-e1" x1="80" y1="60" x2="320" y2="300" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#F4FBFF" stopOpacity="1" />
+          <stop offset="18%" stopColor="#BEE3FF" stopOpacity="0.85" />
+          <stop offset="45%" stopColor="#65B8FF" stopOpacity="0.45" />
+          <stop offset="80%" stopColor="#1670E8" stopOpacity="0.15" />
+          <stop offset="100%" stopColor="#020828" stopOpacity="0" />
+        </linearGradient>
+        <linearGradient id="hero-e2" x1="320" y1="60" x2="80" y2="300" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#EAF6FF" stopOpacity="0.95" />
+          <stop offset="18%" stopColor="#A8D8FF" stopOpacity="0.75" />
+          <stop offset="45%" stopColor="#4FA2F3" stopOpacity="0.35" />
+          <stop offset="80%" stopColor="#1670E8" stopOpacity="0.1" />
+          <stop offset="100%" stopColor="#020828" stopOpacity="0" />
         </linearGradient>
         <radialGradient id="hero-glow" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="#4DB4E8" stopOpacity="0.25" />
-          <stop offset="100%" stopColor="#4DB4E8" stopOpacity="0" />
+          <stop offset="0%" stopColor="#1670E8" stopOpacity="0.28" />
+          <stop offset="100%" stopColor="#1670E8" stopOpacity="0" />
         </radialGradient>
       </defs>
       <circle cx="200" cy="200" r="190" fill="url(#hero-glow)" />
@@ -225,11 +243,11 @@ const HeroMark = () => (
       <ellipse cx="200" cy="200" rx="188" ry="58" stroke="color-mix(in oklch, var(--accent) 40%, transparent)" strokeWidth="1" strokeDasharray="2 6" transform="rotate(-18 200 200)" />
       <ellipse cx="200" cy="200" rx="160" ry="160" stroke="color-mix(in oklch, var(--accent) 20%, transparent)" strokeWidth="1" />
       <ellipse cx="200" cy="200" rx="120" ry="120" stroke="color-mix(in oklch, var(--accent) 12%, transparent)" strokeWidth="1" />
-      {/* main X */}
-      <g transform="translate(200,200)">
-        <path d="M-90,-110 L-50,-110 L90,110 L50,110 Z" fill="url(#hero-x)" />
-        <path d="M50,-110 L90,-110 L-50,110 L-90,110 Z" fill="url(#hero-x-dim)" />
-      </g>
+      {/* main X - crystalline prism with bevel edge highlights */}
+      <path d="M320,60 L340,80 L80,340 L60,320 Z" fill="url(#hero-xb)" />
+      <path d="M320,60 L60,320 L65.3,325.3 L325.3,65.3 Z" fill="url(#hero-e2)" />
+      <path d="M60,80 L80,60 L340,320 L320,340 Z" fill="url(#hero-xf)" />
+      <path d="M80,60 L340,320 L334.7,325.3 L74.7,65.3 Z" fill="url(#hero-e1)" />
       {/* orbit dots */}
       <circle cx="200" cy="40" r="4" fill="var(--accent)" />
       <circle cx="360" cy="200" r="3" fill="color-mix(in oklch, var(--accent) 80%, transparent)" />
@@ -444,7 +462,7 @@ export const LandingPage = () => {
                 }}
               >
                 PrigeeX is an ultra-low-fee DEX and rewards protocol for tokenized real-world
-                assets — built on Infinium Layer 2. Secure, audited, and funded by top investors.
+                assets - built on Infinium Layer 2. Secure, audited, and funded by top investors.
               </p>
 
               <div
@@ -574,12 +592,12 @@ export const LandingPage = () => {
           <div className="col gap-16" style={{ justifyContent: "center" }}>
             <span className="caps">The token</span>
             <h2 className="display" style={{ margin: 0, fontSize: "clamp(28px, 4vw, 44px)" }}>
-              PGX — utility today, <br />
+              PGX - utility today, <br />
               <span className="display-italic text-grad">governance tomorrow.</span>
             </h2>
             <p className="muted" style={{ fontSize: 16, maxWidth: 520, lineHeight: 1.6 }}>
               PGX powers the PrigeeX ecosystem. Stake it for yield, hold it for fee
-              discounts up to 40%, earn it through trading rebates — and later, vote with
+              discounts up to 40%, earn it through trading rebates - and later, vote with
               it on protocol direction.
             </p>
             <div className="col gap-8" style={{ marginTop: 8 }}>

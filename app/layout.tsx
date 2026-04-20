@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono, Fraunces } from "next/font/google";
+import { Geist, Geist_Mono, Fraunces, Inter } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
 import { Nav, MobileTabBar, Footer } from "@/components/nav";
@@ -19,6 +19,12 @@ const fraunces = Fraunces({
   subsets: ["latin"],
   style: ["normal", "italic"],
   weight: ["400", "500", "600"],
+});
+
+const inter = Inter({
+  variable: "--font-brand",
+  subsets: ["latin"],
+  weight: ["500", "600", "700", "800"],
 });
 
 export const metadata: Metadata = {
@@ -41,12 +47,12 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,
-  themeColor: "#0F1A33",
+  themeColor: "#071D49",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} ${fraunces.variable}`}>
+    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} ${fraunces.variable} ${inter.variable}`}>
       <body>
         <Providers>
           <Nav />

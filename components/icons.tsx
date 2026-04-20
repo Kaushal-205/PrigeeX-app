@@ -3,37 +3,16 @@ import React from "react";
 type IconProps = { size?: number };
 
 export const Icon = {
-  Logo: ({ size = 24 }: IconProps) => {
-    const uid = React.useId();
-    const bgId = `pgx-lg-bg-${uid}`;
-    const xId = `pgx-lg-x-${uid}`;
-    return (
-      <svg
-        width={size}
-        height={size}
-        viewBox="0 0 48 48"
-        fill="none"
-        role="img"
-        aria-label="PrigeeX"
-        style={{ display: "block" }}
-      >
-        <defs>
-          <linearGradient id={bgId} x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#0F1A33" />
-            <stop offset="100%" stopColor="#1A2747" />
-          </linearGradient>
-          <linearGradient id={xId} x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#7BE9F2" />
-            <stop offset="50%" stopColor="#4DB4E8" />
-            <stop offset="100%" stopColor="#3E7DDB" />
-          </linearGradient>
-        </defs>
-        <rect x="1" y="1" width="46" height="46" rx="11" fill={`url(#${bgId})`} stroke="#253659" strokeWidth="1" />
-        <path d="M13 12 L19 12 L35 36 L29 36 Z" fill={`url(#${xId})`} />
-        <path d="M29 12 L35 12 L19 36 L13 36 Z" fill={`url(#${xId})`} opacity="0.9" />
-      </svg>
-    );
-  },
+  Logo: ({ size = 24 }: IconProps) => (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src="/image.png"
+      alt="PrigeeX"
+      width={size}
+      height={size}
+      style={{ display: "block", width: size, height: size, objectFit: "contain" }}
+    />
+  ),
   Arrow: ({ size = 16, dir = "right" }: IconProps & { dir?: "right" | "down" | "left" | "up" }) => {
     const rot = { right: 0, down: 90, left: 180, up: 270 }[dir];
     return (
@@ -131,22 +110,46 @@ const TokenGlyph = ({ symbol, s }: { symbol: string; s: number }) => {
   switch (symbol) {
     case "PGX": {
       const bgId = `pgx-tok-bg-${s}`;
-      const xId = `pgx-tok-x-${s}`;
+      const xFrontId = `pgx-tok-xf-${s}`;
+      const xBackId = `pgx-tok-xb-${s}`;
+      const e1 = `pgx-tok-e1-${s}`;
+      const e2 = `pgx-tok-e2-${s}`;
       return (
-        <svg width={s} height={s} viewBox="0 0 32 32">
+        <svg width={s} height={s} viewBox="0 0 120 120">
           <defs>
             <linearGradient id={bgId} x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stopColor="#0F1A33" />
-              <stop offset="100%" stopColor="#1A2747" />
+              <stop offset="0%" stopColor="#0B2A6B" />
+              <stop offset="100%" stopColor="#03102E" />
             </linearGradient>
-            <linearGradient id={xId} x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stopColor="#7BE9F2" />
-              <stop offset="100%" stopColor="#3E7DDB" />
+            <linearGradient id={xFrontId} x1="0.5" y1="0" x2="0.5" y2="1">
+              <stop offset="0%" stopColor="#7CC2FF" />
+              <stop offset="20%" stopColor="#2F8AF0" />
+              <stop offset="45%" stopColor="#1670E8" />
+              <stop offset="75%" stopColor="#0B3FA8" />
+              <stop offset="100%" stopColor="#020828" />
+            </linearGradient>
+            <linearGradient id={xBackId} x1="0.5" y1="0" x2="0.5" y2="1">
+              <stop offset="0%" stopColor="#3A8CE0" />
+              <stop offset="35%" stopColor="#1058C8" />
+              <stop offset="70%" stopColor="#062B84" />
+              <stop offset="100%" stopColor="#010516" />
+            </linearGradient>
+            <linearGradient id={e1} x1="30" y1="16" x2="106" y2="92" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stopColor="#F4FBFF" stopOpacity="1" />
+              <stop offset="45%" stopColor="#65B8FF" stopOpacity="0.45" />
+              <stop offset="100%" stopColor="#020828" stopOpacity="0" />
+            </linearGradient>
+            <linearGradient id={e2} x1="94" y1="16" x2="18" y2="92" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stopColor="#EAF6FF" stopOpacity="0.9" />
+              <stop offset="45%" stopColor="#4FA2F3" stopOpacity="0.3" />
+              <stop offset="100%" stopColor="#020828" stopOpacity="0" />
             </linearGradient>
           </defs>
-          <circle cx="16" cy="16" r="15" fill={`url(#${bgId})`} stroke="#253659" strokeWidth="0.8" />
-          <path d="M9 8.5 L13 8.5 L23 23.5 L19 23.5 Z" fill={`url(#${xId})`} />
-          <path d="M19 8.5 L23 8.5 L13 23.5 L9 23.5 Z" fill={`url(#${xId})`} opacity="0.9" />
+          <circle cx="60" cy="60" r="58" fill={`url(#${bgId})`} stroke="#1A3470" strokeWidth="1.5" />
+          <path d="M94 16 L106 28 L30 104 L18 92 Z" fill={`url(#${xBackId})`} />
+          <path d="M94 16 L18 92 L20.12 94.12 L96.12 18.12 Z" fill={`url(#${e2})`} />
+          <path d="M18 28 L30 16 L106 92 L94 104 Z" fill={`url(#${xFrontId})`} />
+          <path d="M30 16 L106 92 L103.88 94.12 L27.88 18.12 Z" fill={`url(#${e1})`} />
         </svg>
       );
     }

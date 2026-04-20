@@ -98,7 +98,7 @@ export const StakePage = () => {
   const [tab, setTab] = useState<Mode>("stake");
   const [amount, setAmount] = useState("");
 
-  const { data: readData, refetch } = useReadContracts({
+  const { data: readData, refetch, error: readError, status: readStatus } = useReadContracts({
     contracts: [
       { address: PGX_ADDRESS, abi: erc20Abi, functionName: "balanceOf", args: [address!] },
       { address: PGX_ADDRESS, abi: erc20Abi, functionName: "allowance", args: [address!, STAKING_ADDRESS] },
@@ -118,17 +118,41 @@ export const StakePage = () => {
     query: { enabled: !address, refetchInterval: 15_000 },
   });
 
-  const balance = readData?.[0]?.result as bigint | undefined;
-  const allowance = readData?.[1]?.result as bigint | undefined;
-  const staked = readData?.[2]?.result as bigint | undefined;
-  const earnedWei = readData?.[3]?.result as bigint | undefined;
-  const totalStakedWei = (readData?.[4]?.result as bigint | undefined) ?? globalTotalStakedFallback;
-  const rewardRate = readData?.[5]?.result as bigint | undefined;
+  // Debug: log contract read results to identify RPC / contract failures
+  useEffect(() => {
+    if (address && readData) {
+      const labels = ["PGX.balanceOf", "PGX.allowance", "Staking.balanceOf", "Staking.earned", "totalStaked", "rewardRate", "rewardBalance"];
+      readData.forEach((r, i) => {
+        if (r.status === "failure") {
+          console.error(`[Stake] ${labels[i]} FAILED:`, r.error);
+        }
+      });
+      console.log("[Stake] readData:", readData.map((r, i) => `${labels[i]}=${r.status === "success" ? String(r.result) : "ERR"}`).join(", "));
+    }
+    if (readError) {
+      console.error("[Stake] useReadContracts top-level error:", readError);
+    }
+  }, [readData, readError, address]);
 
-  const pgxBal = balance ? Number(formatUnits(balance, PGX_DECIMALS)) : 0;
-  const stakedPgx = staked ? Number(formatUnits(staked, PGX_DECIMALS)) : 0;
-  const earnedPgx = earnedWei ? Number(formatUnits(earnedWei, PGX_DECIMALS)) : 0;
+  const balance = readData?.[0]?.status === "success" ? (readData[0].result as bigint) : undefined;
+  const allowance = readData?.[1]?.status === "success" ? (readData[1].result as bigint) : undefined;
+  const staked = readData?.[2]?.status === "success" ? (readData[2].result as bigint) : undefined;
+  const earnedWei = readData?.[3]?.status === "success" ? (readData[3].result as bigint) : undefined;
+  const totalStakedWei = (readData?.[4]?.status === "success" ? (readData[4].result as bigint) : undefined) ?? globalTotalStakedFallback;
+  const rewardRate = readData?.[5]?.status === "success" ? (readData[5].result as bigint) : undefined;
+
+  // Detect whether contract reads are still loading or have failed
+  const dataLoading = Boolean(address) && readStatus === "pending";
+  const hasContractError = Boolean(address) && readData?.some((r) => r.status === "failure");
+
+  const pgxBal = balance !== undefined ? Number(formatUnits(balance, PGX_DECIMALS)) : 0;
+  const stakedPgx = staked !== undefined ? Number(formatUnits(staked, PGX_DECIMALS)) : 0;
+  const earnedPgx = earnedWei !== undefined ? Number(formatUnits(earnedWei, PGX_DECIMALS)) : 0;
   const globalStaked = totalStakedWei ? Number(formatUnits(totalStakedWei, PGX_DECIMALS)) : 0;
+
+  // Display helpers — show "—" while loading instead of a misleading "0"
+  const showLoading = dataLoading && balance === undefined;
+  const fmtBal = (n: number, d = 4) => (showLoading ? "—" : fmtNum(n, d));
 
   const apr = useMemo(() => {
     if (!rewardRate || !totalStakedWei || totalStakedWei === 0n) return 0;
@@ -267,25 +291,48 @@ export const StakePage = () => {
         </div>
       </div>
 
+      {hasContractError && (
+        <div
+          style={{
+            padding: "10px 16px",
+            marginBottom: 14,
+            borderRadius: 8,
+            background: "color-mix(in oklch, var(--danger) 10%, var(--panel))",
+            border: "1px solid color-mix(in oklch, var(--danger) 30%, var(--line))",
+            fontSize: 13,
+            color: "var(--danger)",
+            display: "flex",
+            alignItems: "center",
+            gap: 8,
+          }}
+        >
+          <span style={{ fontSize: 16 }}>⚠</span>
+          <span>
+            Failed to fetch on-chain data — your RPC may be rate-limited. Balances shown may be stale.
+            Check the browser console for details.
+          </span>
+        </div>
+      )}
+
       <div
         className="stake-summary"
         style={{ display: "grid", gap: 12, marginBottom: 20 }}
       >
         <SummaryCard
           label="Your staked"
-          value={`${fmtNum(stakedPgx)} PGX`}
-          sub={`≈ ${fmtUsd(stakedPgx * PGX_PRICE_USD)}`}
+          value={`${fmtBal(stakedPgx)} PGX`}
+          sub={showLoading ? "—" : `≈ ${fmtUsd(stakedPgx * PGX_PRICE_USD)}`}
         />
         <SummaryCard
           label="Pending rewards"
-          value={`${fmtNum(earnedPgx, 4)} PGX`}
-          sub={`≈ ${fmtUsd(earnedPgx * PGX_PRICE_USD)}`}
+          value={`${fmtBal(earnedPgx, 4)} PGX`}
+          sub={showLoading ? "—" : `≈ ${fmtUsd(earnedPgx * PGX_PRICE_USD)}`}
           accent
         />
         <SummaryCard
           label="Wallet PGX"
-          value={`${fmtNum(pgxBal)} PGX`}
-          sub={`≈ ${fmtUsd(pgxBal * PGX_PRICE_USD)}`}
+          value={`${fmtBal(pgxBal)} PGX`}
+          sub={showLoading ? "—" : `≈ ${fmtUsd(pgxBal * PGX_PRICE_USD)}`}
         />
         <SummaryCard
           label="Share of pool"

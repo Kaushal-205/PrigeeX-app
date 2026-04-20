@@ -1,4 +1,4 @@
-# PrigeeX — Claude Code prompt (paste into terminal)
+# PrigeeX - Claude Code prompt (paste into terminal)
 
 Copy the block below and paste it as your message to Claude Code at the repo root. It will create the brand assets and wire the Prism logo into every surface (header, footer, favicon, loading states, token list entry, README, meta tags).
 
@@ -67,7 +67,7 @@ Integrate the finalized PrigeeX "Prism" logo across the codebase. Do all of the 
 
 2. Create a reusable `<Logo />` React component at `src/components/Logo.tsx` (or `.jsx` if the project is JS). It should accept `size` (number, default 24), `variant` ("gradient" | "solid" | "wordmark", default "gradient"), and `className`. Internally render inline SVG with unique gradient IDs per instance (append a hook-generated ID) so multiple logos on one page don't clash. Export as default.
 
-3. Header / navbar: replace any existing logo element with `<Logo size={22} />` followed by a `Prigee<span class="text-accent">X</span>` wordmark. Search for existing logo usages — look for files named `Header`, `Navbar`, `Nav`, `TopBar`, `AppShell` — and update all of them.
+3. Header / navbar: replace any existing logo element with `<Logo size={22} />` followed by a `Prigee<span class="text-accent">X</span>` wordmark. Search for existing logo usages - look for files named `Header`, `Navbar`, `Nav`, `TopBar`, `AppShell` - and update all of them.
 
 4. Footer: replace any existing logo element with `<Logo size={16} variant="solid" />`.
 
@@ -100,9 +100,9 @@ After applying, run the project (or `npm run build`) and report any warnings/err
 ---
 
 **Files in this project you already have:**
-- `brand/prigeex-logo.svg` — primary
-- `brand/prigeex-mark-solid.svg` — flat
-- `brand/prigeex-favicon.svg` — 32px optimized
-- `brand/prigeex-wordmark.svg` — horizontal lockup
+- `brand/prigeex-logo.svg` - primary
+- `brand/prigeex-mark-solid.svg` - flat
+- `brand/prigeex-favicon.svg` - 32px optimized
+- `brand/prigeex-wordmark.svg` - horizontal lockup
 
 You can also just drag these into your repo's `public/brand/` directly if you prefer skipping the regeneration step.

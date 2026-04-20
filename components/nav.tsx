@@ -61,8 +61,17 @@ export const Nav = () => {
 
         <Link href="/" className="row nav-logo" style={{ padding: 0, alignItems: "center", flexShrink: 0, gap: 10 }}>
           <Icon.Logo size={28} />
-          <span className="nav-wordmark" style={{ fontSize: 17, fontWeight: 600, letterSpacing: "-0.02em", lineHeight: 1 }}>
-            PrigeeX
+          <span
+            className="nav-wordmark"
+            style={{
+              fontFamily: "var(--font-brand), Inter, Manrope, system-ui, sans-serif",
+              fontSize: 18,
+              fontWeight: 700,
+              letterSpacing: "-0.035em",
+              lineHeight: 1,
+            }}
+          >
+            Prigee<span style={{ color: "var(--accent)" }}>X</span>
           </span>
           <span
             className="mono mvp-badge"
@@ -232,7 +241,17 @@ export const Footer = () => (
     >
       <div className="row gap-10" style={{ alignItems: "center" }}>
         <Icon.Logo size={22} />
-        <span style={{ fontSize: 14, fontWeight: 600, letterSpacing: "-0.01em", lineHeight: 1 }}>PrigeeX</span>
+        <span
+          style={{
+            fontFamily: "var(--font-brand), Inter, Manrope, system-ui, sans-serif",
+            fontSize: 15,
+            fontWeight: 700,
+            letterSpacing: "-0.03em",
+            lineHeight: 1,
+          }}
+        >
+          Prigee<span style={{ color: "var(--accent)" }}>X</span>
+        </span>
         <span className="mono" style={{ fontSize: 11, color: "var(--text-3)" }}>Tokenize · Trade · Thrive</span>
       </div>
       <div className="row gap-16 footer-links" style={{ fontSize: 13, color: "var(--text-2)" }}>

@@ -10,10 +10,12 @@
   --text: oklch(0.98 0.01 258);
   --text-2: oklch(0.74 0.02 258);
   --text-3: oklch(0.56 0.025 258);
-  --accent: oklch(0.84 0.13 210);
-  --accent-2: oklch(0.70 0.15 240);
-  --accent-3: oklch(0.62 0.18 265);
-  --accent-ink: oklch(0.14 0.04 258);
+  --accent: oklch(0.68 0.18 255);
+  --accent-2: oklch(0.56 0.22 258);
+  --accent-3: oklch(0.42 0.18 262);
+  --accent-ink: oklch(0.98 0.005 258);
+  --brand-navy: #071D49;
+  --brand-blue: #1670E8;
   --danger: oklch(0.72 0.18 25);
   --warn: oklch(0.82 0.15 85);
   --ok: oklch(0.80 0.14 170);
@@ -22,7 +24,7 @@
   --font: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, sans-serif;
   --mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
   --serif: var(--font-serif), "Times New Roman", serif;
-  --grad-brand: linear-gradient(135deg, oklch(0.84 0.13 200) 0%, oklch(0.70 0.15 240) 55%, oklch(0.62 0.18 270) 100%);
+  --grad-brand: linear-gradient(135deg, #5CC4FF 0%, #1670E8 55%, #0A4BB0 100%);
   --grad-panel: linear-gradient(160deg, color-mix(in oklch, var(--accent) 10%, var(--panel)) 0%, var(--panel) 65%);
   --tabbar-h: 68px;
   --safe-b: env(safe-area-inset-bottom, 0px);
@@ -303,7 +305,7 @@ input:focus, button:focus-visible {
 
 .tbl-wrap { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
 
-/* Page grids — defined in CSS so media queries can override.
+/* Page grids - defined in CSS so media queries can override.
    `minmax(0, ...)` prevents long content from blowing out the column. */
 .stake-summary { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 .stake-grid { grid-template-columns: minmax(0, 440px) minmax(0, 1fr); }
@@ -345,7 +347,7 @@ input:focus, button:focus-visible {
   .nav-header { height: 56px !important; gap: 8px !important; }
   .nav-logo .mvp-badge { display: none; }
 
-  /* Landing — premium hero */
+  /* Landing - premium hero */
   .hero-eyebrow { font-size: 11px !important; }
   .hero-stats { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 10px !important; }
   .hero-stats .stat-item { padding: 14px !important; }
@@ -421,16 +423,16 @@ input:focus, button:focus-visible {
 
 /* ─── Responsive: Extra small ─── */
 @media (max-width: 480px) {
-  /* Rewards hero — trim number further so long amounts ("12,345.67") don't overflow */
+  /* Rewards hero - trim number further so long amounts ("12,345.67") don't overflow */
   .rewards-hero-amount { font-size: 34px !important; }
 
-  /* Tables — tighten cell padding so 4-col claim history fits without scroll */
+  /* Tables - tighten cell padding so 4-col claim history fits without scroll */
   .tbl th, .tbl td { padding: 10px 12px; font-size: 12px; }
 
-  /* Stake emissions footer — 2-up instead of 3 cramped */
+  /* Stake emissions footer - 2-up instead of 3 cramped */
   .stake-emissions-footer > div { flex: 1 1 45%; align-items: flex-start !important; min-width: 0; }
 
-  /* Swap settings slippage chips — wrap cleanly */
+  /* Swap settings slippage chips - wrap cleanly */
   .swap-grid .panel .row.gap-8 { flex-wrap: wrap; }
 }
 
@@ -443,7 +445,7 @@ input:focus, button:focus-visible {
 }
 
 /* ═════════════════════════════════════════════════════════════
-   Mobile App Shell — bottom tab bar, compact header, safe areas
+   Mobile App Shell - bottom tab bar, compact header, safe areas
    Below 720px the site behaves like a native app: header shows
    only a page title + wallet, a fixed bottom tab bar replaces
    the hamburger, and every page reserves bottom padding so
@@ -528,7 +530,7 @@ input:focus, button:focus-visible {
   .app-wallet-btn { padding: 8px 12px !important; font-size: 13px !important; }
   .app-header .chip.sm-hide { display: none !important; }
 
-  /* Hide the legacy site footer on mobile — the tab bar replaces it */
+  /* Hide the legacy site footer on mobile - the tab bar replaces it */
   .app-footer { display: none !important; }
 
   /* Tighten container horizontal padding for app feel */
@@ -538,7 +540,7 @@ input:focus, button:focus-visible {
   main { padding-top: 12px !important; }
   .panel { border-radius: 16px; }
 
-  /* Landing (app home) — phone layout */
+  /* Landing (app home) - phone layout */
   .landing-hero { padding-top: 20px !important; padding-bottom: 16px !important; padding-left: 16px !important; padding-right: 16px !important; }
   .hero-split { gap: 20px !important; }
   .hero-visual { max-width: 280px !important; margin: 0 auto !important; }
@@ -557,7 +559,7 @@ input:focus, button:focus-visible {
     z-index: 40;
   }
 
-  /* Stake page — app feel */
+  /* Stake page - app feel */
   main.container-app { padding-left: 16px !important; padding-right: 16px !important; padding-top: 16px !important; }
   .stake-summary { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 10px !important; }
   .stake-summary .panel { padding: 14px !important; }
@@ -567,11 +569,11 @@ input:focus, button:focus-visible {
   .chip { padding: 6px 12px; font-size: 12px; }
   button.chip { min-height: 28px; }
 
-  /* Rewards hero — phone-app style */
+  /* Rewards hero - phone-app style */
   .rewards-hero { padding: 20px !important; border-radius: 18px !important; }
   .rewards-hero .btn-lg { width: 100%; }
 
-  /* Inputs — larger font to prevent iOS zoom */
+  /* Inputs - larger font to prevent iOS zoom */
   input.input, input.num { font-size: 16px; }
 }
 
